@@ -1,0 +1,50 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin@123
+      MYSQL_DATABASE: arogya_q
+    ports:
+      - "3307:3306"
+    volumes:
+      - arogya_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pAdmin@123", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+      - "8081:8081"
+      - "8082:8082"
+    environment:
+      APP_NAME: ArogyaQ
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_DATABASE: arogya_q
+      DB_USERNAME: root
+      DB_PASSWORD: Admin@123
+      QUEUE_CONNECTION: sync
+      CACHE_STORE: database
+      SESSION_DRIVER: database
+      OTP_DEMO: "true"
+      QUEUE_ENGINE_URL: http://127.0.0.1:8081
+      QUEUE_ENGINE_SECRET: arogya-queue-secret
+      QUEUE_ENGINE_WS_PORT: "8082"
+      LARAVEL_WEBHOOK_URL: http://127.0.0.1:8000/webhooks/queue
+      SMS_DRIVER: log
+      WHATSAPP_DRIVER: log
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  arogya_mysql:

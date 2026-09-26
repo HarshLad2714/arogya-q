@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Fraunces', ui-serif, Georgia, serif;
+    --color-paper: #f3eee4;
+    --color-ink: #14241c;
+    --color-forest: #12382f;
+    --color-canopy: #1f6b52;
+    --color-brass: #b8893d;
+    --color-brass-soft: #f0e2c4;
+    --color-clay: #c4543a;
+    --color-mist: #e7efe9;
+    --color-foam: #fffdf8;
+}
+
+@layer base {
+    html { scroll-behavior: smooth; }
+    body {
+        background-color: var(--color-paper);
+        color: var(--color-ink);
+        background-image:
+            radial-gradient(circle at 8% 0%, rgba(184, 137, 61, 0.18), transparent 26%),
+            radial-gradient(circle at 100% 8%, rgba(18, 56, 47, 0.08), transparent 28%);
+    }
+    h1, h2, h3, .font-display { font-family: var(--font-display); font-optical-sizing: auto; }
+    ::selection { background: #12382f; color: #fbf7f0; }
+}
+
+.field {
+    width: 100%;
+    border-radius: 1rem;
+    border: 1px solid rgba(20, 36, 28, 0.14);
+    background: var(--color-foam);
+    padding: 0.85rem 1rem;
+    color: var(--color-ink);
+}
+.field:focus {
+    outline: none;
+    border-color: var(--color-forest);
+    box-shadow: 0 0 0 4px rgba(18, 56, 47, 0.12);
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: 999px;
+    padding: 0.8rem 1.25rem;
+    font-weight: 600;
+    background: var(--color-forest);
+    color: #f6f1e7;
+    transition: transform .15s ease, background .15s ease;
+}
+.btn:hover { background: #0c2822; transform: translateY(-1px); }
+.btn-brass { background: var(--color-brass); color: #24180a; }
+.btn-brass:hover { background: #a67a32; }
+.btn-ghost { background: transparent; color: inherit; border: 1px solid rgba(20, 36, 28, 0.2); }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.35); }
+.btn-clay { background: var(--color-clay); color: white; }
+.btn-sm { padding: 0.45rem 0.8rem; font-size: 0.85rem; }
+
+.token-disc {
+    width: 9.5rem;
+    height: 9.5rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 42%, #fff8e8 0 54%, transparent 55%),
+        conic-gradient(from 30deg, #f4e4bc, #8d682e, #fff1cf, #c6a15a, #7a5a28, #f4e4bc);
+    box-shadow: 0 18px 40px rgba(20, 36, 28, 0.16), inset 0 0 0 8px rgba(255, 255, 255, 0.28);
+}
+.token-disc span { display: block; }
+.token-disc .kicker { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: #6d5424; }
+.token-disc .num { font-family: var(--font-display); font-size: 2.6rem; line-height: 1; color: #2a2112; }
+
+.ticket {
+    position: relative;
+    background: var(--color-foam);
+    border-radius: 1.6rem;
+    box-shadow: 0 24px 50px rgba(20, 36, 28, 0.08);
+}
+.ticket::before, .ticket::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--color-paper);
+    top: 46%;
+}
+.ticket::before { left: -11px; }
+.ticket::after { right: -11px; }
+
+.panel-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 999px;
+    padding: 0.7rem 0.95rem;
+    color: rgba(246, 241, 231, 0.82);
+}
+.panel-link.active, .panel-link:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    background: var(--color-mist);
+}
+.pill-live { background: #e7f6ee; color: #0f6a45; }
+.pill-wait { background: var(--color-brass-soft); color: #6d5424; }
+.pill-bad { background: #fde8e3; color: #9a3412; }
+
+.display-body {
+    background: #071510;
+    color: #f6f1e7;
+    min-height: 100vh;
+}
+.now-number {
+    font-family: var(--font-display);
+    font-size: clamp(6.5rem, 18vw, 14rem);
+    line-height: 0.85;
+    color: #f3e2b8;
+}
+
+@media print {
+    .no-print { display: none !important; }
+    body { background: white; }
+}
